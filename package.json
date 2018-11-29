@@ -1,6 +1,7 @@
 {
   "name": "{{name}}",
-  "version": "0.0.1",
+  "version": "{{version}}",
+  "description": "{{description}}",
   "dependencies": {
     "chalk": "^2.4.1",
     "co": "^4.6.0",
