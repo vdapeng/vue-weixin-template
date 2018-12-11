@@ -9,21 +9,21 @@ const whiteList = ['/login']// no redirect whitelist
 router.beforeEach((to, from, next) => {
   const userId = store.getters.userid
   if (!userId || userId == null || userId === undefined || userId === '' || userId === 'undefined') {
-    if (isWeiXin()) {
-      const code = valueByKey('code')
-      const state = valueByKey('state')
-      if (!code || !state) {
-        window.location.href = weixinAuthUrl(to)
-      } else {
-        store.dispatch('AUTH', code).then(() => {
-          next(state)
-        }).catch(() => {
-          next(state)
-        })
-      }
+    if (whiteList.indexOf(to.path) !== -1) { // 在免登录白名单，直接进入
+      next()
     } else {
-      if (whiteList.indexOf(to.path) !== -1) { // 在免登录白名单，直接进入
-        next()
+      if (isWeiXin()) {
+        const code = valueByKey('code')
+        const state = valueByKey('state')
+        if (!code || !state) {
+          window.location.href = weixinAuthUrl(to)
+        } else {
+          store.dispatch('Auth', code).then(() => {
+            next(state)
+          }).catch(() => {
+            next(`/error`)
+          })
+        }
       } else {
         next(`/login?redirect=${to.path}`)
       }

@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function auth (code) {
   return request({
-    url: '/wxcp/auth/userInfo',
+    url: '/wxcp/wxcp/auth/userInfo',
     method: 'get',
     params: { code }
   })
@@ -10,8 +10,16 @@ export function auth (code) {
 
 export function jsAuth (url) {
   return request({
-    url: '/wxcp/jsapi/jsapiSignature',
+    url: '/wxcp/wxcp/jsapi/jsapiSignature',
     method: 'get',
     params: { url }
+  })
+}
+
+export function login (data) {
+  return request({
+    url: '/u/qywxUserInfo/login',
+    method: 'post',
+    data: data
   })
 }

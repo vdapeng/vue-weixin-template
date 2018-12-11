@@ -30,6 +30,5 @@ export function removeUserId () {
 }
 
 export function weixinAuthUrl (to) {
-  alert(process.env.APPID)
   return 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + process.env.APPID + '&redirect_uri=' + URI() + '&response_type=code&scope=snsapi_userinfo&state=' + to.path + '#wechat_redirect'
 }

@@ -1,5 +1,5 @@
 <template>
-    <form ref="dataForm">
+    <div ref="dataForm">
       <x-icon type="ios-ionic-outline"></x-icon>
       <group>
        <x-input title="用户名"></x-input>
@@ -10,11 +10,12 @@
       <group style="margin: 0px 15px;">
         <x-button @click.native="login()">登录</x-button>
       </group>
-    </form>
+    </div>
 </template>
 
 <script>
-import { setUserId } from '@/utils/auth'
+import store from '@/store'
+
 export default {
   name: 'login',
   data () {
@@ -32,8 +33,11 @@ export default {
   },
   methods: {
     login () {
-      setUserId('dapeng')
-      this.$router.push({ path: this.redirect || '/' })
+      store.dispatch('Login', this.login).then(() => {
+        this.$router.push({ path: this.redirect || '/' })
+      }).catch(() => {
+        console.log('error')
+      })
     }
   }
 }
