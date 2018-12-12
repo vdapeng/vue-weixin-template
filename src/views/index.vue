@@ -9,7 +9,6 @@
 
 <script>
 import { Qrcode, Divider } from 'vux'
-import {URI} from '@/utils/hrefUtil'
 
 export default {
   name: 'index',
@@ -18,7 +17,7 @@ export default {
   },
   data () {
     return {
-      URI: URI()
+      URI: window.location.href
     }
   }
 }

@@ -21,7 +21,7 @@ router.beforeEach((to, from, next) => {
           store.dispatch('Auth', code).then(() => {
             next(state)
           }).catch(() => {
-            next(`/error`)
+            next(`/error?redirect=${state}`)
           })
         }
       } else {
