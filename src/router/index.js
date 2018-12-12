@@ -15,6 +15,11 @@ export default new Router({
       name: '首页',
       component: () => import('@/views/index')
     },
+    {
+      path: '/error',
+      name: '错误',
+      component: () => import('@/views/error')
+    },
     { path: '*', redirect: '/', hidden: true }
   ]
 })

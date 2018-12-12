@@ -1,26 +1,25 @@
 <template>
     <div ref="dataForm">
-      <x-icon type="ios-ionic-outline"></x-icon>
-      <group>
-       <x-input title="用户名"></x-input>
-      </group>
-      <group>
-        <x-input title="密码"></x-input>
-      </group>
-      <group style="margin: 0px 15px;">
-        <x-button @click.native="login()">登录</x-button>
-      </group>
+      <svg-icon icon-class="logo" style="font-size: 8em;margin-bottom: 25px;" />
+      <mt-field label="用户名" placeholder="请输入用户名" v-model="login.username"></mt-field>
+      <mt-field label="密码" placeholder="请输入密码" type="password" v-model="login.password"></mt-field>
+      <mt-button @click.native="handleLogin" size="large" style="margin-top: 15px">登录</mt-button>
     </div>
 </template>
 
 <script>
 import store from '@/store'
+import { Indicator, Toast } from 'mint-ui'
 
 export default {
   name: 'login',
   data () {
     return {
-      redirect: '/'
+      redirect: '/',
+      login: {
+        username: '',
+        password: ''
+      }
     }
   },
   watch: {
@@ -32,11 +31,25 @@ export default {
     }
   },
   methods: {
-    login () {
+    handleLogin () {
+      Indicator.open({
+        text: '登录中...',
+        spinnerType: 'fading-circle'
+      })
       store.dispatch('Login', this.login).then(() => {
-        this.$router.push({ path: this.redirect || '/' })
+        Indicator.close()
+        Toast({
+          message: '登录成功',
+          duration: 2000
+        })
+        setTimeout(() => {
+          this.$router.push({ path: this.redirect || '/' })
+        }, 2000)
       }).catch(() => {
-        console.log('error')
+        Indicator.close()
+        Toast({
+          message: '登录失败'
+        })
       })
     }
   }

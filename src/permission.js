@@ -7,7 +7,9 @@ import { weixinAuthUrl } from './utils/auth'
 const whiteList = ['/login']// no redirect whitelist
 
 router.beforeEach((to, from, next) => {
+  console.log(to.path)
   const userId = store.getters.userid
+  console.log(userId)
   if (!userId || userId == null || userId === undefined || userId === '' || userId === 'undefined') {
     if (whiteList.indexOf(to.path) !== -1) { // 在免登录白名单，直接进入
       next()
@@ -29,10 +31,6 @@ router.beforeEach((to, from, next) => {
       }
     }
   } else {
-    if (to.path === '/login') {
-      next('/')
-    } else {
-      next()
-    }
+    next()
   }
 })

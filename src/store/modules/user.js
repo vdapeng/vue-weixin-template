@@ -1,13 +1,17 @@
 import { getUserId, setUserId } from '@/utils/auth'
-import { auth } from '@/api/auth'
+import { auth, login } from '@/api/auth'
 
 const user = {
   state: {
-    userid: getUserId()
+    userid: getUserId(),
+    user: {}
   },
   mutations: {
     SET_USERID: (state, userid) => {
       state.userid = userid
+    },
+    SER_USER: (state, user) => {
+      state.user = user
     }
   },
   actions: {
